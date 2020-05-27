@@ -52,8 +52,12 @@ class Lagou(object):
             # 公司名
             item_list.append(li.find_elements_by_xpath(".//div[@class='list_item_top']//div[@class='company_name']/a")[0].text)
             # 行业
-            item_list.append(
-                li.find_elements_by_xpath(".//div[@class='list_item_top']//div[@class='industry']")[0].text)
+            industry=li.find_elements_by_xpath(".//div[@class='list_item_top']//div[@class='industry']")[0].text
+            if "," in industry:
+                after=industry.replace(",","|")
+                item_list.append(after)
+            else:
+                item_list.append(industry)
 
             # 薪酬
             item_list.append(li.find_elements_by_xpath(".//div[@class='list_item_top']//div[@class='p_bot']//span[@class='money']")[0].text)
@@ -80,6 +84,7 @@ class Lagou(object):
                     if isinstance(item, str):
                         if '，' in item:
                             item.replace(",", "|")
+
                     f.write(item+ ",")
                 f.write('\n')
 
