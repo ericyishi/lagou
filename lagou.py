@@ -11,6 +11,7 @@ class Lagou(object):
         self.chrome_options = Options()
         self.chrome_options.add_argument('--headless')
         self.chromepath=r'E:\installPackage\selenium_driver\chromedriver.exe'
+        self.createTime=time.strftime("%Y%m%d%H%M%S", time.localtime())
 
         # self.driver = webdriver.Chrome(chrome_options=self.chrome_options)
 
@@ -53,12 +54,12 @@ class Lagou(object):
             item_list.append(li.find_elements_by_xpath(".//div[@class='list_item_top']//div[@class='company_name']/a")[0].text)
             # 行业
             industry=li.find_elements_by_xpath(".//div[@class='list_item_top']//div[@class='industry']")[0].text
-            if "," in industry:
-                after=industry.replace(",","|")
-                item_list.append(after)
-            else:
-                item_list.append(industry)
-
+            # if "," in industry:
+            #     after=industry.replace(",","|")
+            #     item_list.append(after)
+            # else:
+            #     item_list.append(industry)
+            item_list.append(industry)
             # 薪酬
             item_list.append(li.find_elements_by_xpath(".//div[@class='list_item_top']//div[@class='p_bot']//span[@class='money']")[0].text)
             # 经验
@@ -77,15 +78,16 @@ class Lagou(object):
         return content_list, next_url
 
     def save_content_list(self, content_list):
-        with open(self.search_name + "_data.csv", "a", encoding='utf-8-sig') as f:
+        with open(self.search_name + "_"+self.createTime+".csv", "a", encoding='utf-8-sig') as f:
             for content in content_list:
                 print(content)
                 for item in content:
                     if isinstance(item, str):
-                        if '，' in item:
-                            item.replace(",", "|")
-
-                    f.write(item+ ",")
+                        if  (',' in item) :
+                            a=item.replace(",", "|")
+                            f.write(a + ",")
+                        else:
+                            f.write(item+ ",")
                 f.write('\n')
 
     def run(self):
@@ -102,7 +104,8 @@ class Lagou(object):
         self.save_content_list(content_list)
         #
         # # 翻页
-        while next_url is not None:
+        # while next_url is not None:
+        for i in range(0,3):
             next_url.click()
             time.sleep(6)
             content_list, next_url = self.get_content_list()
