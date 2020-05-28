@@ -104,8 +104,8 @@ class Lagou(object):
         self.save_content_list(content_list)
         #
         # # 翻页
-        # while next_url is not None:
-        for i in range(0,3):
+        while next_url is not None:
+        # for i in range(0,3):
             next_url.click()
             time.sleep(6)
             content_list, next_url = self.get_content_list()
