@@ -21,7 +21,7 @@
      with open(self.search_name + "_data.csv", "a", encoding='utf-8-sig') as f:
   ```  
 ### 待优化点 
-  1. 运行时间
+  1. 运行时间【已增加】
   2. 生成csv增加当前时间【已增加】
   3. 选择城市的时候，为了图省事，目前只能传入热门城市（//a[@class="hot-city-name"），没有从全国区域入口进入。
-  
+  4. 增加log【已增加】
