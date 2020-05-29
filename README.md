@@ -19,6 +19,11 @@
 * CSV中文写入乱码，open文件时候指定编码为：encoding='utf-8-sig'
   ```
      with open(self.search_name + "_data.csv", "a", encoding='utf-8-sig') as f:
+  ``` 
+* 在爬取boss网站时候遇到有检测是否是爬虫，需要设置下参数来规避
+  ```
+    在启动Chromedriver之前，为Chrome开启实验性功能参数excludeSwitches，它的值为['enable-automation']
+	 options.add_experimental_option('excludeSwitches', ['enable-automation'])
   ```  
 ### 待优化点 
   1. 运行时间【已增加】
